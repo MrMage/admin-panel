@@ -1,4 +1,4 @@
-import MySQL
+import PostgreSQL
 import Vapor
 
 public enum AdminPanelUserRole: String {
@@ -65,14 +65,15 @@ extension AdminPanelUserRole: AdminPanelUserRoleType {
     }
 }
 
-extension AdminPanelUserRole: MySQLDataConvertible {
-    public func convertToMySQLData() -> MySQLData {
-        return MySQLData(string: self.rawValue)
+extension AdminPanelUserRole: PostgreSQLDataConvertible {
+    public func convertToPostgreSQLData() throws -> PostgreSQLData {
+        return try self.rawValue.convertToPostgreSQLData()
     }
 
-    public static func convertFromMySQLData(_ mysqlData: MySQLData) throws -> AdminPanelUserRole {
-        guard let role = AdminPanelUserRole(rawValue: mysqlData.string()) else {
-            throw Abort(.internalServerError, reason: "Could not convert MySQLData to AdminPanelUserRole")
+    public static func convertFromPostgreSQLData(_ postgreSQLData: PostgreSQLData) throws -> AdminPanelUserRole {
+		let roleString = try String.convertFromPostgreSQLData(postgreSQLData)
+        guard let role = AdminPanelUserRole(rawValue: roleString) else {
+            throw Abort(.internalServerError, reason: "Could not convert PostgreSQLData to AdminPanelUserRole")
         }
         return role
     }

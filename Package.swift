@@ -21,7 +21,7 @@ let package = Package(
         .package(url: "https://github.com/twof/VaporMailgunService.git", from: "1.1.0"),
 
         .package(url: "https://github.com/vapor/auth.git", from: "2.0.0"),
-        .package(url: "https://github.com/vapor/fluent-mysql.git", from: "3.0.0"),
+        .package(url: "https://github.com/vapor/fluent-postgresql.git", from: "1.0.0"),
         .package(url: "https://github.com/vapor/fluent.git", from: "3.0.0"),
         .package(url: "https://github.com/vapor/leaf.git", from: "3.0.0"),
         .package(url: "https://github.com/vapor/vapor.git", from: "3.0.0"),
@@ -34,7 +34,7 @@ let package = Package(
                 "Bootstrap",
                 "Flash",
                 "Fluent",
-                "FluentMySQL",
+                "FluentPostgreSQL",
                 "Leaf",
                 "Mailgun",
                 "Paginator",

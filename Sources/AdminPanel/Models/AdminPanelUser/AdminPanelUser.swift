@@ -1,5 +1,4 @@
-import FluentMySQL
-import MySQL
+import FluentPostgreSQL
 import Vapor
 
 public final class AdminPanelUser: Codable {
@@ -42,23 +41,19 @@ public final class AdminPanelUser: Codable {
 
 extension AdminPanelUser: Content {}
 extension AdminPanelUser: Migration {
-    public static func prepare(on connection: MySQLConnection) -> Future<Void> {
-        return MySQLDatabase.create(self, on: connection) { builder in
+    public static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
+        return PostgreSQLDatabase.create(self, on: connection) { builder in
             try addProperties(to: builder, excluding: [
                 AdminPanelUser.reflectProperty(forKey: \.role)
             ])
 
             builder.field(
                 for: \.role,
-                type: .enum([
-                    AdminPanelUserRole.superAdmin.rawValue,
-                    AdminPanelUserRole.admin.rawValue,
-                    AdminPanelUserRole.user.rawValue
-                ]))
+                type: .text)
         }
     }
 }
-extension AdminPanelUser: MySQLModel {
+extension AdminPanelUser: PostgreSQLModel {
     public static let createdAtKey: TimestampKey? = \.createdAt
     public static let updatedAtKey: TimestampKey? = \.updatedAt
     public static let deletedAtKey: TimestampKey? = \.deletedAt
