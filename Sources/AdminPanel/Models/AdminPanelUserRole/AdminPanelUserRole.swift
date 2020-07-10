@@ -78,3 +78,5 @@ extension AdminPanelUserRole: PostgreSQLDataConvertible {
         return role
     }
 }
+
+extension AdminPanelUserRole: CaseIterable {}

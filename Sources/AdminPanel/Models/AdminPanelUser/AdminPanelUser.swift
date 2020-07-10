@@ -54,6 +54,8 @@ extension AdminPanelUser: Migration {
     }
 }
 extension AdminPanelUser: PostgreSQLModel {
+    public typealias Database = PostgreSQLDatabase
+
     public static let createdAtKey: TimestampKey? = \.createdAt
     public static let updatedAtKey: TimestampKey? = \.updatedAt
     public static let deletedAtKey: TimestampKey? = \.deletedAt
